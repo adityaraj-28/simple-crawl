@@ -4,7 +4,7 @@ from repository.proxy_repository import ProxyRepository
 
 
 class ProxyService:
-    def __int__(self):
+    def __init__(self):
         self.proxy_repository = ProxyRepository()
         self.proxy_list = self.proxy_repository.list(
             fields=['ip_address', 'password', 'port', 'username'], filter_args=None

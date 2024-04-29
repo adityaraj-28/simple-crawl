@@ -5,7 +5,7 @@ from utils.mysql import Mysql
 
 class ProxyRepository:
 
-    def __init(self):
+    def __init__(self):
         self.mysql = Mysql()
 
     def list(self, filter_args, fields):
@@ -19,9 +19,6 @@ class ProxyRepository:
             db_name=MysqlDBNames.LABS_CORE_DB,
             filter_args=filter_args,
             selected_columns=fields,
-            case_insensitive_columns=case_insensitive_columns,
-            limit=1
+            case_insensitive_columns=case_insensitive_columns
         )
-        if len(res) > 0:
-            return res[0]
-        return None
+        return res
