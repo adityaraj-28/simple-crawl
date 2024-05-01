@@ -13,7 +13,7 @@ class ProxyService:
     def generate_playwright_proxy_params(self):
         proxy = random.choice(self.proxy_list)
         return {
-            "server": f"{proxy.ip_address}:{proxy.port}",
-            "username": proxy.ip_address,
+            "server": f"http://{proxy.ip_address}:{proxy.port}",
+            "username": proxy.username,
             "password": proxy.password
         }
