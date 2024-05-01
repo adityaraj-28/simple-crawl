@@ -1,5 +1,3 @@
-from base64 import b64encode
-
 import structlog
 from playwright.sync_api import sync_playwright
 
@@ -33,7 +31,7 @@ class Crawler:
                 ]
             )
             page = browser.new_page()
-            response = page.goto(url)
+            response = page.goto(url=url, wait_until='domcontentloaded', timeout=30*1000)
             self.logger.info(f"url: {url}, proxy-used: {proxy_args['server']}, response code: {response.status}")
             if response.status // 100 == 2 or response.status // 100 == 3:
                 redirect_urls = self.__build_redirect_url(response)
@@ -62,4 +60,4 @@ class Crawler:
 
 
 if __name__ == '__main__':
-    Crawler().crawl("128technology.com", "http://128technology.com/")
+    Crawler().crawl("theuselessweb.com", "https://theuselessweb.com")
