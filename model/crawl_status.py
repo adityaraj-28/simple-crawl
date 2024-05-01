@@ -8,7 +8,6 @@ class CrawlStatus(Base):
     __tablename__ = 'crawl_status'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    fingerprint = Column(String(50, collation='utf8mb4_bin'))
     url_md5 = Column(String(50, collation='utf8mb4_bin'))
     url = Column(String(1024, collation='utf8mb4_bin'))
     seed_domain = Column(String(50, collation='utf8mb4_bin'))

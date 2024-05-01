@@ -107,7 +107,7 @@ class Mysql:
 
     def update(self, model_cls, filter_args, update_dict, db_name, case_insensitive_columns=[]):
         try:
-            engine = self.get_engine(db_name)
+            engine = self.__get_engine(db_name)
             Session = sessionmaker(bind=engine, expire_on_commit=False)
             with Session() as session:
                 query = session.query(model_cls)
