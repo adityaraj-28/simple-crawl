@@ -27,7 +27,7 @@ class Crawler:
                     "-ignore-certificate-errors"
                 ]
             )
-            page = browser.new_page(proxy=self.proxy_service.generate_playwright_proxy_params())
+            page = browser.new_page()
             response = page.goto(url)
             if response.status % 100 == 2 or response.status % 100 == 3:
                 redirect_urls = self.__build_redirect_url(response)
