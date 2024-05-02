@@ -4,6 +4,7 @@ from playwright.sync_api import sync_playwright
 from constants import Status
 from service.crawl_status_service import CrawlStatusService
 from service.proxy_service import ProxyService
+from service.user_agent_service import UserAgentService
 from utils import calculate_md5_hash
 from utils.s3_client import S3Client
 
@@ -14,6 +15,7 @@ class Crawler:
         self.crawl_status_service = CrawlStatusService()
         self.s3_client = S3Client()
         self.logger = structlog.getLogger(__name__)
+        self.user_agent_service = UserAgentService()
 
     def crawl(self, domain, url):
         url_md5 = calculate_md5_hash(url)
@@ -31,8 +33,10 @@ class Crawler:
                 ]
             )
             page = browser.new_page()
+            user_agent = self.user_agent_service.get_random_user_agent()
+            page.set_extra_http_headers({'User-Agent': user_agent})
             response = page.goto(url=url, wait_until='domcontentloaded', timeout=30*1000)
-            self.logger.info(f"url: {url}, proxy-used: {proxy_args['server']}, response code: {response.status}")
+            self.logger.info(f"url: {url}, proxy-used: {proxy_args['server']}, user_agent: {user_agent}, response code: {response.status}")
             if response.status // 100 == 2 or response.status // 100 == 3:
                 redirect_urls = self.__build_redirect_url(response)
                 s3_uri = self.s3_client.upload_to_s3(domain=domain, data=response.text())

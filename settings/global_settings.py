@@ -58,3 +58,5 @@ BUCKET_NAME = os.getenv('BUCKET_NAME')
 S3_PATH_PREFIX = os.getenv('S3_PATH_PREFIX', 'broad_crawl/dev')
 LOCALSTACK_URL = 'http://localhost.localstack.cloud:4566'
 CRAWL_VERSION = 'simple-crawl'
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+
